@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Deep Dive - Foursix46</title>
+    <title>URL Deep Dive</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -73,7 +73,7 @@
             <input 
                 type="text" 
                 id="urlInput" 
-                placeholder="Try typing: https://www.foursix46.com/blog/url-explained?ref=social#title"
+                placeholder="Try typing: https://www.google.com/blog/url-explained?ref=social#title"
                 class="w-full p-3 mb-4 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none"
             />
             
@@ -126,7 +126,7 @@
                     <span class="text-accent-color mr-2 font-extrabold text-2xl">1.</span> DNS Lookup: The Internet's GPS
                 </h3>
                 <p class="text-sm sm:text-base text-gray-400 ml-6">
-                    The browser uses the Domain (e.g., `foursix46.com`) to find its unique IP Address (e.g., `192.168.1.1`) via a Domain Name System (DNS) server. This is the crucial translation step. [Image of DNS lookup process]
+                    The browser uses the Domain (e.g., `google.com`) to find its unique IP Address (e.g., `192.168.1.1`) via a Domain Name System (DNS) server. This is the crucial translation step. [Image of DNS lookup process]
                 </p>
             </div>
 
@@ -226,7 +226,7 @@
         urlInput.addEventListener('input', updateUrlBreakdown);
         
         // Initialize with a placeholder URL
-        urlInput.value = 'https://www.foursix46.com/blog/url-explained?ref=social#title';
+        urlInput.value = 'https://www.google.com/blog/url-explained?ref=social#title';
         updateUrlBreakdown();
 
 
