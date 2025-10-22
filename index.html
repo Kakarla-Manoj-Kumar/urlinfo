@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Deep Dive - Foursix46</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font and smooth transitions */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .interactive-card, .link-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Custom scrollbar for aesthetics */
+        .content-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .content-scroll::-webkit-scrollbar-thumb {
+            background-color: #34D399; /* Accent color */
+            border-radius: 3px;
+        }
+        .content-scroll::-webkit-scrollbar-track {
+            background: #1F2937; /* Secondary dark */
+        }
+        /* Specific input focus color */
+        #urlInput:focus {
+            border-color: #34D399;
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.5); /* Accent color ring */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#111827',
+                        'secondary-dark': '#1F2937',
+                        'accent-color': '#34D399', /* Emerald 400 */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<!-- Centered content vertically and horizontally -->
+<body class="bg-primary-dark min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Content Container - Focused on URL content -->
+    <div id="link-hub" class="w-full max-w-lg mx-auto">
+        
+        <!-- Main Title -->
+        <header class="text-center mb-6">
+            <h1 class="text-4xl font-extrabold text-white tracking-tight">
+                The URL Deep Dive
+            </h1>
+            <p class="text-gray-400 mt-1">
+                Type "URL" in the chat? Unlock the secrets behind every web address!
+            </p>
+        </header>
+
+        <!-- New Interactive URL Breakdown Tool -->
+        <div id="url-parser-section" class="interactive-card bg-secondary-dark p-6 rounded-xl shadow-2xl border-2 border-accent-color/50 mb-6">
+            <h2 class="text-xl font-bold text-accent-color mb-3">
+                Live URL Analyzer
+            </h2>
+            <input 
+                type="text" 
+                id="urlInput" 
+                placeholder="Try typing: https://www.foursix46.com/blog/url-explained?ref=social#title"
+                class="w-full p-3 mb-4 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none"
+            />
+            
+            <div id="urlOutput" class="space-y-2 text-sm text-gray-300">
+                <!-- Output goes here -->
+                <p class="text-gray-500 italic" id="parseStatus">
+                    Enter a URL above to see its components.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Content Toggle Button (The main social CTA) -->
+        <button id="toggleContent" 
+            class="link-button w-full block bg-indigo-600 hover:bg-indigo-500 text-white p-4 rounded-xl shadow-xl border-b-4 border-indigo-700 active:border-b-0 flex items-center justify-center space-x-3 transition duration-150 ease-in-out mb-6 font-extrabold uppercase text-lg sm:text-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <span id="toggleText">
+                🤯 See the 5 Steps: How Browsers Get the Content!
+            </span>
+        </button>
+
+        <!-- Dynamic Content Section (Initially Hidden) -->
+        <div id="fullExplanation" class="hidden bg-secondary-dark p-6 rounded-xl shadow-2xl border-2 border-accent-color/50 text-gray-300 transition-all duration-300 content-scroll max-h-[90vh] overflow-y-auto">
+            
+            <!-- New Section: URL Anatomy -->
+            <h2 class="text-2xl font-bold text-accent-color mb-4 pb-2 border-b border-gray-700">
+                Part 1: The Anatomy of a URL
+            </h2>
+            <p class="mb-4 text-sm sm:text-base leading-relaxed">
+                A Uniform Resource Locator (URL) is more than just a name; it's a precise instruction set for your browser. It tells the browser *what* resource to get and *how* to get it.
+            </p>
+            
+            <ul class="list-disc space-y-3 pl-5 mb-8">
+                <li><strong class="text-white">Protocol (e.g., `https://`):</strong> The rules of communication. <span class="text-gray-400">HTTPS (Hypertext Transfer Protocol Secure) ensures encrypted communication, essential for security.</span></li>
+                <li><strong class="text-white">Domain/Host (`www.foursix46.com`):</strong> The human-readable name of the server. <span class="text-gray-400">This is the part that must be translated into an IP address.</span></li>
+                <li><strong class="text-white">Path (`/blog/url-explained`):</strong> Specifies the exact location of the file or resource on that server. <span class="text-gray-400">It directs the server to the content you want to view.</span></li>
+                <li><strong class="text-white">Query Parameters (`?ref=social`):</strong> Optional data passed to the server, often used for tracking or filtering content. <span class="text-gray-400">These start with a `?` followed by key-value pairs (`key=value`).</span></li>
+                <li><strong class="text-white">Fragment (`#title`):</strong> An optional internal marker. <span class="text-gray-400">It tells the browser to scroll to a specific element *after* the page loads (the server never sees this part).</span></li>
+            </ul>
+
+            <!-- Updated Section: 5 Steps -->
+            <h2 class="text-2xl font-bold text-accent-color mb-4 pt-4 pb-2 border-b border-t border-gray-700">
+                Part 2: The 5-Step Resolution Process
+            </h2>
+            
+            <!-- Step 1: DNS Lookup -->
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-1 flex items-center">
+                    <span class="text-accent-color mr-2 font-extrabold text-2xl">1.</span> DNS Lookup: The Internet's GPS
+                </h3>
+                <p class="text-sm sm:text-base text-gray-400 ml-6">
+                    The browser uses the Domain (e.g., `foursix46.com`) to find its unique IP Address (e.g., `192.168.1.1`) via a Domain Name System (DNS) server. This is the crucial translation step. [Image of DNS lookup process]
+                </p>
+            </div>
+
+            <!-- Step 2: TCP Handshake -->
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-1 flex items-center">
+                    <span class="text-accent-color mr-2 font-extrabold text-2xl">2.</span> TCP/TLS Handshake: Securing the Line
+                </h3>
+                <p class="text-sm sm:text-base text-gray-400 ml-6">
+                    Using the IP address, the browser initiates a **TCP Handshake** (SYN, SYN-ACK, ACK) to establish a reliable connection. For HTTPS, a subsequent **TLS Handshake** occurs to encrypt the entire session.
+                </p>
+            </div>
+
+            <!-- Step 3: HTTP/S Request -->
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-1 flex items-center">
+                    <span class="text-accent-color mr-2 font-extrabold text-2xl">3.</span> HTTP Request: Asking for the File
+                </h3>
+                <p class="text-sm sm:text-base text-gray-400 ml-6">
+                    The browser sends a `GET` request (including the Path and any Query Parameters) to the server, essentially saying, "Please send me the file located at this Path."
+                </p>
+            </div>
+            
+            <!-- Step 4: Server Processing & Response -->
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-1 flex items-center">
+                    <span class="text-accent-color mr-2 font-extrabold text-2xl">4.</span> Server Response: Sending the Code
+                </h3>
+                <p class="text-sm sm:text-base text-gray-400 ml-6">
+                    The server finds the resource, prepares the HTML, and sends back an **HTTP Response**. This includes a status code (like `200 OK` or `404 Not Found`) and the payload of code (HTML, CSS, JavaScript).
+                </p>
+            </div>
+
+            <!-- Step 5: Rendering -->
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-1 flex items-center">
+                    <span class="text-accent-color mr-2 font-extrabold text-2xl">5.</span> Rendering: Building the Page
+                </h3>
+                <p class="text-sm sm:text-base text-gray-400 ml-6">
+                    The browser takes the raw code, builds the structure (**DOM Tree**), applies the styles (**CSSOM Tree**), and finally "paints" the completed page onto your screen, resulting in the final view.
+                </p>
+            </div>
+        </div>
+
+        <!-- NEW SIGNATURE BLOCK (Always visible at the bottom) -->
+        <footer class="text-center mt-8 pt-4 border-t border-gray-700">
+            <p class="text-sm text-gray-400">
+                Created by <strong class="text-white font-semibold">Manoj Kumar Kakarla</strong>
+            </p>
+        </footer>
+        
+    </div>
+    
+    <script>
+        // --- URL Parser Logic ---
+        const urlInput = document.getElementById('urlInput');
+        const urlOutput = document.getElementById('urlOutput');
+        const parseStatus = document.getElementById('parseStatus');
+
+        function updateUrlBreakdown() {
+            const urlStr = urlInput.value.trim();
+            urlOutput.innerHTML = '';
+            
+            if (urlStr === '') {
+                parseStatus.textContent = 'Enter a URL above to see its components.';
+                urlOutput.appendChild(parseStatus);
+                return;
+            }
+
+            try {
+                // Use the native URL object for reliable parsing
+                const url = new URL(urlStr);
+                
+                parseStatus.textContent = ''; // Clear status if successful
+                
+                const components = [
+                    { label: 'Protocol', value: url.protocol, color: 'text-red-400' },
+                    { label: 'Hostname', value: url.hostname, color: 'text-green-400' },
+                    { label: 'Port', value: url.port || 'None (Default)', color: 'text-yellow-400' },
+                    { label: 'Pathname', value: url.pathname || '/', color: 'text-blue-400' },
+                    { label: 'Query Params', value: url.search || 'None', color: 'text-purple-400' },
+                    { label: 'Fragment/Hash', value: url.hash || 'None', color: 'text-pink-400' },
+                ];
+                
+                components.forEach(comp => {
+                    const p = document.createElement('p');
+                    p.innerHTML = `<span class="font-bold w-32 inline-block">${comp.label}:</span> <span class="${comp.color} font-mono break-words">${comp.value}</span>`;
+                    urlOutput.appendChild(p);
+                });
+
+            } catch (e) {
+                parseStatus.textContent = 'Invalid URL format. Please include the protocol (e.g., https://).';
+                urlOutput.appendChild(parseStatus);
+            }
+        }
+
+        urlInput.addEventListener('input', updateUrlBreakdown);
+        
+        // Initialize with a placeholder URL
+        urlInput.value = 'https://www.foursix46.com/blog/url-explained?ref=social#title';
+        updateUrlBreakdown();
+
+
+        // --- Toggle Content Logic ---
+        const toggleButton = document.getElementById('toggleContent');
+        const fullExplanation = document.getElementById('fullExplanation');
+        const toggleText = document.getElementById('toggleText');
+
+        toggleButton.addEventListener('click', () => {
+            if (fullExplanation.classList.contains('hidden')) {
+                // Show content
+                fullExplanation.classList.remove('hidden');
+                fullExplanation.classList.add('animate-fadeIn'); 
+                toggleButton.classList.remove('bg-indigo-600', 'hover:bg-indigo-500', 'border-indigo-700');
+                toggleButton.classList.add('bg-accent-color', 'hover:bg-emerald-300', 'border-emerald-600');
+                toggleText.textContent = '👆 Hide the Deep Dive';
+                
+                // Scroll to the content to ensure it's visible on mobile
+                setTimeout(() => {
+                    fullExplanation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+
+            } else {
+                // Hide content
+                fullExplanation.classList.add('hidden');
+                toggleButton.classList.remove('bg-accent-color', 'hover:bg-emerald-300', 'border-emerald-600');
+                toggleButton.classList.add('bg-indigo-600', 'hover:bg-indigo-500', 'border-indigo-700');
+                toggleText.textContent = '🤯 See the 5 Steps: How Browsers Get the Content!';
+            }
+        });
+    </script>
+</body>
+</html>
